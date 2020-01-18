@@ -1,0 +1,25 @@
+name: BackstopJS
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Cache node modules
+      id: cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: npm ci
+      run: npm ci
+      if: steps.cache.outputs.cache-hit != 'true'
+    - run: npm run test
