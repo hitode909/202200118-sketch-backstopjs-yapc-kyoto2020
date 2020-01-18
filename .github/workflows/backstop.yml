@@ -22,10 +22,10 @@ jobs:
     - name: npm ci
       run: npm ci
       if: steps.cache.outputs.cache-hit != 'true'
-    - run: npm run test
+    - run: npm run test -- --docker
     - name: Archive code coverage results
       uses: actions/upload-artifact@v1
       with:
         name: report
         path: backstop_data/
-      if: failure()
+      if: always()
