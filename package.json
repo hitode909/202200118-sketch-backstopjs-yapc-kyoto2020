@@ -4,7 +4,9 @@
   "description": "Visual Regression Test for YAPC::Kyoto 2020",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "backstop init",
+    "reference": "backstop reference",
+    "test": "backstop test"
   },
   "author": "",
   "license": "ISC",
